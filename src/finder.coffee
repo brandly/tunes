@@ -17,7 +17,7 @@ exports.search = (query) ->
   finder.on 'file', (file) ->
     if file.toLowerCase().indexOf(query) > -1
       magic.detectFile file, (err, mimeType) ->
-        throw err if err
+        return deferred.reject err if err
 
         if mimeType is 'audio/mpeg'
           searchResults.push file
