@@ -30,6 +30,6 @@ class Playlist
       throw err if err
       console.log "#np #{tags.v2.artist} - #{tags.v2.title}"
 
-    playing.on 'finish', @start
+    playing.on 'finish', => @start()
 
 module.exports = Playlist
