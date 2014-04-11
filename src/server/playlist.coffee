@@ -5,13 +5,25 @@ id3 = require 'id3js'
 
 class Playlist
   current: -1
+  song: null
 
-  constructor: (@files) ->
+  constructor: (@files = []) ->
+
+  add: (file) ->
+    @files.push file
 
   next: ->
     @current += 1
     if @current < @files.length
       return @files[@current]
+
+  prev: ->
+    @current = Math.min 0, @current - 1
+    @files[@current]
+
+  playByIndex: (index) ->
+    @current = index
+    @play @files[index]
 
   play: (file) ->
     song = fs.createReadStream file
@@ -21,6 +33,15 @@ class Playlist
 
     song.pipe new lame.Decoder()
         .pipe new Speaker()
+
+    @song = song
+    return file
+
+  resume: ->
+    @song?.resume()
+
+  pause: ->
+    @song?.pause()
 
   start: ->
     sound = @next()

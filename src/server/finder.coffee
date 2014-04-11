@@ -4,13 +4,14 @@ mmm = require 'mmmagic'
 Magic = mmm.Magic
 Q = require 'q'
 
-base = process.env.HOME + '/Music'
-finder = findit base
 magic = new Magic mmm.MAGIC_MIME_TYPE
 
 exports.search = (query) ->
   query = query or throw 'whoaaa you gotta look for something'
   query = query.toLowerCase()
+
+  base = process.env.HOME + '/Music'
+  finder = findit base
 
   deferred = Q.defer()
   searchResults = []
