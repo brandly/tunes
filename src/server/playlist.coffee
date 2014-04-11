@@ -11,6 +11,7 @@ class Playlist
 
   add: (file) ->
     @files.push file
+    return file
 
   next: ->
     @current += 1
@@ -29,7 +30,7 @@ class Playlist
     song = fs.createReadStream file
 
     song.on 'error', (error) ->
-      console.log 'error playing song:', error
+      console.err 'error playing song:', error
 
     song.pipe new lame.Decoder()
         .pipe new Speaker()

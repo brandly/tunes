@@ -1,11 +1,11 @@
 
 express = require 'express'
-# setup = require './setup.coffee'
+setup = require './setup.coffee'
 route = require './routes.coffee'
 
 app = express()
 
-# setup app
+setup app
 route app
 
 port = process.env.PORT or 8888

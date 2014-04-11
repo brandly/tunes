@@ -12,6 +12,7 @@
     "id3js": "^1.1.2",
     "express": "^4.0.0",
     "request": "^2.34.0",
-    "minimist": "0.0.8"
+    "minimist": "0.0.8",
+    "body-parser": "^1.0.1"
   }
 }

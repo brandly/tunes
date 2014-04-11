@@ -5,16 +5,19 @@ lastSearchResults = null
 nowPlaying = null
 playlist = new Playlist []
 
-exports.search = finder.search
+exports.search = (query) ->
+  finder.search(query).then (results) ->
+    lastSearchResults = results
+    return results
 
 # return np
 exports.status = ->
   {nowPlaying}
 
 # if np paused, play
-exports.play = (index) ->
-  if index?
-    playlist.playByIndex index
+exports.play = (i) ->
+  if i?
+    nowPlaying = playlist.playByIndex i
   else
     playlist.resume()
 
@@ -23,12 +26,12 @@ exports.pause = ->
   playlist.pause()
 
 exports.next = ->
-  file = playlist.next()
-  playlist.play file
+  nowPlaying = playlist.next()
+  playlist.play nowPlaying
 
 exports.prev = ->
-  file = playlist.prev()
-  playlist.play file
+  nowPlaying = playlist.prev()
+  playlist.play nowPlaying
 
 # from last results, add that song
 exports.add = (i) ->

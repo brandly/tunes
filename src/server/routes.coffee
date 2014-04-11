@@ -2,20 +2,16 @@ tunes = require './tunes.coffee'
 
 module.exports = (app) ->
   app.get '/search', (req, res) ->
-    console.log 'SEARCHING', req.query
     tunes.search(req.query.q).then (results) ->
-      console.log 'SENDING RESULTS'
       res.send results
     , (e) ->
-      console.log 'SENDING ERROR'
       res.send e
 
   app.get '/status', (req, res) ->
-    tunes.status().then (status) ->
-      res.send status
+    res.send tunes.status()
 
   app.post '/play', (req, res) ->
-    res.send tunes.play(req.query.i)
+    res.send tunes.play(req.body.i)
 
   app.post '/pause', (req, res) ->
     tunes.pause()
@@ -30,7 +26,8 @@ module.exports = (app) ->
       res.send 'prev'
 
   # could pass index of last search results
-  # app.post '/add', (req, res) ->
+  app.post '/add', (req, res) ->
+    res.send tunes.add(req.body.i)
 
   # add files, directories
   # app.post '/import', (req, res) ->
