@@ -4,8 +4,8 @@ Playlist = require './playlist.coffee'
 query = process.argv[2]
 console.log "searching for #{query}"
 
-finder.search(query).then (results) ->
-  console.log "found #{results.length}"
+finder.search(query).then (files) ->
+  console.log "found #{files.length}"
 
-  playlist = new Playlist results
+  playlist = new Playlist files
   playlist.start()
