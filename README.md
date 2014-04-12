@@ -26,7 +26,6 @@ $ coffee src/client/client.coffee search flockaveli
 # add track to turnt
 $ coffee src/client/client.coffee add -i 1
 > + Wacka Flocka Flame - Hard in da Paint
-```
 
 # play track from turnt
 $ coffee src/client/client.coffee play -i 0
@@ -34,4 +33,4 @@ $ coffee src/client/client.coffee play -i 0
 
 # make a different list...
 $ coffee src/client/client.coffee list chill
-
+```
