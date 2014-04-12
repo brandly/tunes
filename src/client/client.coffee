@@ -38,13 +38,15 @@ display = (pre, file) ->
     throw err if err
     console.log "#{pre} #{tags.v2.artist} - #{tags.v2.title}"
 
+list = (files) ->
+  for file, i in files
+    display "[#{i}]", file
+
 switch command
   when 'search'
     get searchUrl(argv._), (e, r, files) ->
       throw e if e
-
-      for file, i in files
-        display "[#{i}]", file
+      list files
 
   when 'status'
     get '/status', (e, r, body) ->
@@ -79,6 +81,17 @@ switch command
     post '/prev', (e, r, file) ->
       throw e if e
       display '<<', file
+
+  when 'list'
+    name = argv._.shift()
+    if name?
+      post '/list', {name}, (e, r, body) ->
+        throw e if e
+        console.log '++', name
+    else
+      get '/list', (e, r, files) ->
+        throw e if e
+        list files
 
   else
     console.log 'whatttt u talkin bout', command

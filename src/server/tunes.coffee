@@ -3,7 +3,7 @@ Playlist = require './playlist.coffee'
 
 lastSearchResults = null
 nowPlaying = null
-playlist = new Playlist 'sup'
+playlist = null
 
 exports.search = (query) ->
   finder.search(query).then (results) ->
@@ -17,20 +17,29 @@ exports.status = ->
 # if np paused, play
 exports.play = (i) ->
   if i?
-    nowPlaying = playlist.playByIndex i
+    nowPlaying = playlist?.playByIndex i
   else
-    playlist.resume()
+    playlist?.resume()
 
 # if np, pause it
 exports.pause = ->
-  playlist.pause()
+  playlist?.pause()
 
 exports.next = ->
-  nowPlaying = playlist.next()
+  nowPlaying = playlist?.next()
 
 exports.prev = ->
-  nowPlaying = playlist.prev()
+  nowPlaying = playlist?.prev()
 
 # from last results, add that song
 exports.add = (i) ->
-  playlist.add lastSearchResults[i]
+  playlist?.add lastSearchResults[i]
+
+exports.getList = ->
+  playlist.files
+
+exports.list = (name) ->
+  exports.pause()
+  playlist = new Playlist name
+  exports.getList()
+

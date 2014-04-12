@@ -26,6 +26,12 @@ module.exports = (app) ->
   app.post '/add', (req, res) ->
     res.send tunes.add(req.body.i)
 
+  app.get '/list', (req, res) ->
+    res.send tunes.getList()
+
+  app.post '/list', (req, res) ->
+    res.send tunes.list(req.body.name)
+
   # add files, directories
   # app.post '/import', (req, res) ->
 
