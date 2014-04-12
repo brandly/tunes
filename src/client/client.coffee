@@ -85,9 +85,10 @@ switch command
   when 'list'
     name = argv._.shift()
     if name?
-      post '/list', {name}, (e, r, body) ->
+      post '/list', {name}, (e, r, files) ->
         throw e if e
         console.log '++', name
+        list files
     else
       get '/list', (e, r, files) ->
         throw e if e
