@@ -11,8 +11,9 @@
 request = require 'request'
 argv = require('minimist') process.argv.slice(2)
 id3 = require 'id3js'
+config = require '../config'
 
-base = 'http://127.0.0.1:8888'
+base = 'http://127.0.0.1:' + config.port
 command = argv._.shift()
 
 searchUrl = (q) ->
