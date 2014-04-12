@@ -31,6 +31,10 @@ $ coffee src/client/client.coffee add -i 1
 $ coffee src/client/client.coffee play -i 0
 > > Wacka Flocka Flame - Hard in da Paint
 
+# pause it
+$ coffee src/client/client.coffee pause
+> || Wacka Flocka Flame - Hard in da Paint
+
 # make a different list...
 $ coffee src/client/client.coffee list chill
 > ++ chill
