@@ -33,4 +33,5 @@ $ coffee src/client/client.coffee play -i 0
 
 # make a different list...
 $ coffee src/client/client.coffee list chill
+> ++ chill
 ```
