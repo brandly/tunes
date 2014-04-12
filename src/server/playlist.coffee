@@ -1,7 +1,6 @@
 fs = require 'fs'
 Speaker = require 'speaker'
 lame = require 'lame'
-id3 = require 'id3js'
 Throttle = require 'throttle'
 
 config =
@@ -21,6 +20,8 @@ class Playlist
   add: (file) ->
     @files.push file
     return file
+
+  # remove: (i) ->
 
   next: ->
     return unless @files.length
@@ -46,7 +47,7 @@ class Playlist
       sampleRate: config.sampleRate
 
     song = fs.createReadStream file
-              .pipe decoder
+             .pipe decoder
 
     song.on 'error', (error) ->
       console.err 'error playing song:', error
@@ -71,15 +72,10 @@ class Playlist
       @song.pause()
       return @file
 
-  start: ->
-    sound = @next()
-    playing = @play sound
-
-    id3 {file: sound, type: id3.OPEN_LOCAL}, (err, tags) ->
-      throw err if err
-      console.log "#np #{tags.v2.artist} - #{tags.v2.title}"
-
-    playing.on 'finish', => @start()
+  # start: ->
+  #   sound = @next()
+  #   playing = @play sound
+  #   playing.on 'finish', => @start()
 
   _speaker: ->
     @speaker = new Speaker()
