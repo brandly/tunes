@@ -2,10 +2,19 @@ fs = require 'fs'
 Speaker = require 'speaker'
 lame = require 'lame'
 id3 = require 'id3js'
+Throttle = require 'throttle'
+
+config =
+  channels: 2
+  bitDepth: 16
+  sampleRate: 44100
 
 class Playlist
   current: -1
   song: null
+  file: null
+  speaker: null
+  throttle: null
 
   constructor: (@files = []) ->
 
@@ -27,22 +36,37 @@ class Playlist
     @play @files[index]
 
   play: (file) ->
+    @pause()
+    @file = file
+    @throttle = new Throttle(config.bitDepth * config.sampleRate)
+    decoder = new lame.Decoder
+      channels: config.channels
+      bitDepth: config.bitDepth
+      sampleRate: config.sampleRate
+
     song = fs.createReadStream file
+              .pipe decoder
 
     song.on 'error', (error) ->
       console.err 'error playing song:', error
 
-    song.pipe new lame.Decoder()
-        .pipe new Speaker()
+    song.pipe @throttle
+        .pipe @_speaker()
 
     @song = song
     return file
 
   resume: ->
-    @song?.resume()
+    if @song?
+      @song.resume()
+      @song.pipe @throttle
+           .pipe @_speaker()
 
   pause: ->
-    @song?.pause()
+    if @song?
+      @song.unpipe()
+      @speaker.end()
+      @song.pause()
 
   start: ->
     sound = @next()
@@ -53,5 +77,8 @@ class Playlist
       console.log "#np #{tags.v2.artist} - #{tags.v2.title}"
 
     playing.on 'finish', => @start()
+
+  _speaker: ->
+    @speaker = new Speaker()
 
 module.exports = Playlist
