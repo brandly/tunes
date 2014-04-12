@@ -3,10 +3,25 @@ Speaker = require 'speaker'
 lame = require 'lame'
 Throttle = require 'throttle'
 
+folder = './lists'
+
 config =
   channels: 2
   bitDepth: 16
   sampleRate: 44100
+
+ensureExists = (dir)->
+  try
+    fs.mkdirSync dir
+  catch error
+    if error.code isnt 'EEXIST'
+      console.err 'ERROR', error
+
+getList = (name) ->
+  try
+    JSON.parse fs.readFileSync("#{folder}/#{name}.json").toString('utf-8')
+  catch e
+    return []
 
 class Playlist
   current: -1
@@ -15,10 +30,12 @@ class Playlist
   speaker: null
   throttle: null
 
-  constructor: (@files = []) ->
+  constructor: (@name) ->
+    @files = getList @name
 
   add: (file) ->
     @files.push file
+    @save()
     return file
 
   # remove: (i) ->
@@ -79,5 +96,8 @@ class Playlist
 
   _speaker: ->
     @speaker = new Speaker()
+
+  save: ->
+    fs.writeFileSync "#{folder}/#{@name}.json", JSON.stringify(@files)
 
 module.exports = Playlist

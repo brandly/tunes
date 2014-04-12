@@ -3,7 +3,7 @@ Playlist = require './playlist.coffee'
 
 lastSearchResults = null
 nowPlaying = null
-playlist = new Playlist []
+playlist = new Playlist 'sup'
 
 exports.search = (query) ->
   finder.search(query).then (results) ->
