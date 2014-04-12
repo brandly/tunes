@@ -1,7 +1,7 @@
 
 express = require 'express'
-setup = require './setup.coffee'
-route = require './routes.coffee'
+setup = require './start/setup.coffee'
+route = require './start/routes.coffee'
 
 app = express()
 

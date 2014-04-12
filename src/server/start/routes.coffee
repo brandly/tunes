@@ -1,4 +1,4 @@
-tunes = require './tunes.coffee'
+tunes = require '../tunes/tunes.coffee'
 
 module.exports = (app) ->
   app.get '/search', (req, res) ->
