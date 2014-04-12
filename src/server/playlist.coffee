@@ -23,13 +23,14 @@ class Playlist
     return file
 
   next: ->
-    @current += 1
-    if @current < @files.length
-      return @files[@current]
+    return unless @files.length
+    @current = (@current + 1) % @files.length
+    @playByIndex @current
 
   prev: ->
-    @current = Math.min 0, @current - 1
-    @files[@current]
+    return unless @files.length
+    @current = Math.max 0, @current - 1
+    @playByIndex @current
 
   playByIndex: (index) ->
     @current = index

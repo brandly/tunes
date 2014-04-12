@@ -27,11 +27,9 @@ exports.pause = ->
 
 exports.next = ->
   nowPlaying = playlist.next()
-  playlist.play nowPlaying
 
 exports.prev = ->
   nowPlaying = playlist.prev()
-  playlist.play nowPlaying
 
 # from last results, add that song
 exports.add = (i) ->

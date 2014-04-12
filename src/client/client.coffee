@@ -65,5 +65,21 @@ switch command
       throw e if e
       console.log body
 
+  when 'next'
+    request.post
+      url: "#{base}/next"
+      json: true
+    , (e, r, body) ->
+      throw e if e
+      console.log body
+
+  when 'prev'
+    request.post
+      url: "#{base}/prev"
+      json: true
+    , (e, r, body) ->
+      throw e if e
+      console.log body
+
   else
     console.log 'whatttt u talkin bout', command
