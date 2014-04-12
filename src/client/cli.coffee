@@ -35,9 +35,12 @@ post = (url, body, holla) ->
   request.post options, holla
 
 display = (pre, file) ->
-  id3 {file: file, type: id3.OPEN_LOCAL}, (err, tags) ->
-    throw err if err
-    console.log "#{pre} #{tags.v2.artist} - #{tags.v2.title}"
+  if file.indexOf('spotify:') is 0
+    console.log "#{pre} #{file}"
+  else
+    id3 {file: file, type: id3.OPEN_LOCAL}, (err, tags) ->
+      throw err if err
+      console.log "#{pre} #{tags.v2.artist} - #{tags.v2.title}"
 
 list = (files) ->
   for file, i in files

@@ -17,7 +17,8 @@ exports.status = ->
 # if np paused, play
 exports.play = (i) ->
   if i?
-    nowPlaying = playlist?.playByIndex i
+    playlist?.playByIndex(i).then (file) ->
+      nowPlaying = file
   else
     playlist?.resume()
 

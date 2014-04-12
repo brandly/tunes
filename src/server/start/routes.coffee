@@ -11,16 +11,19 @@ module.exports = (app) ->
     res.send tunes.status()
 
   app.post '/play', (req, res) ->
-    res.send tunes.play(req.body.i)
+    tunes.play(req.body.i).then (file) ->
+      res.send file
 
   app.post '/pause', (req, res) ->
     res.send tunes.pause()
 
   app.post '/next', (req, res) ->
-    res.send tunes.next()
+    tunes.next().then (file) ->
+      res.send file
 
   app.post '/prev', (req, res) ->
-    res.send tunes.prev()
+    tunes.prev().then (file) ->
+      res.send file
 
   # could pass index of last search results
   app.post '/add', (req, res) ->

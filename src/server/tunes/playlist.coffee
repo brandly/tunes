@@ -2,6 +2,8 @@ fs = require 'fs'
 Speaker = require 'speaker'
 lame = require 'lame'
 Throttle = require 'throttle'
+spotify = require './spotify.coffee'
+Q = require 'q'
 
 folder = './lists'
 
@@ -22,6 +24,14 @@ getList = (name) ->
     JSON.parse fs.readFileSync("#{folder}/#{name}.json").toString('utf-8')
   catch e
     return []
+
+stream = (file) ->
+  if file.indexOf('spotify:') is 0
+    spotify.stream file
+  else
+    deferred = Q.defer()
+    deferred.resolve fs.createReadStream(file)
+    return deferred.promise
 
 class Playlist
   current: -1
@@ -57,23 +67,23 @@ class Playlist
   play: (file) ->
     @pause()
     @file = file
-    @throttle = new Throttle(config.bitDepth * config.sampleRate)
-    decoder = new lame.Decoder
-      channels: config.channels
-      bitDepth: config.bitDepth
-      sampleRate: config.sampleRate
+    stream(file).then (mp3) =>
+      @throttle = new Throttle(config.bitDepth * config.sampleRate)
+      decoder = new lame.Decoder
+        channels: config.channels
+        bitDepth: config.bitDepth
+        sampleRate: config.sampleRate
 
-    song = fs.createReadStream file
-             .pipe decoder
+      song = mp3.pipe decoder
 
-    song.on 'error', (error) ->
-      console.err 'error playing song:', error
+      song.on 'error', (error) ->
+        console.err 'error playing song:', error
 
-    song.pipe @throttle
-        .pipe @_speaker()
+      song.pipe @throttle
+          .pipe @_speaker()
 
-    @song = song
-    return @file
+      @song = song
+      return @file
 
   resume: ->
     if @song?
