@@ -14,16 +14,13 @@ module.exports = (app) ->
     res.send tunes.play(req.body.i)
 
   app.post '/pause', (req, res) ->
-    tunes.pause()
-    res.send 'paused'
+    res.send tunes.pause()
 
   app.post '/next', (req, res) ->
-    tunes.next()
-    res.send 'next'
+    res.send tunes.next()
 
   app.post '/prev', (req, res) ->
-    tunes.prev().then ->
-      res.send 'prev'
+    res.send tunes.prev()
 
   # could pass index of last search results
   app.post '/add', (req, res) ->

@@ -54,19 +54,21 @@ class Playlist
         .pipe @_speaker()
 
     @song = song
-    return file
+    return @file
 
   resume: ->
     if @song?
       @song.resume()
       @song.pipe @throttle
            .pipe @_speaker()
+      return @file
 
   pause: ->
     if @song?
       @song.unpipe()
       @speaker.end()
       @song.pause()
+      return @file
 
   start: ->
     sound = @next()
