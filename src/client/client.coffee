@@ -16,10 +16,22 @@ base = 'http://127.0.0.1:8888'
 command = argv._.shift()
 
 searchUrl = (q) ->
-  "#{base}/search?q=#{encodeURIComponent q.join(' ')}"
+  "/search?q=#{encodeURIComponent q.join(' ')}"
 
 get = (url, holla) ->
-  request.get {url, json: true}, holla
+  request.get {url: "#{base}#{url}", json: true}, holla
+
+post = (url, body, holla) ->
+  options =
+    url: "#{base}#{url}"
+    json: true
+
+  if typeof holla is 'function'
+    options.body = body
+  else
+    holla = body
+
+  request.post options, holla
 
 display = (pre, file) ->
   id3 {file: file, type: id3.OPEN_LOCAL}, (err, tags) ->
@@ -35,7 +47,7 @@ switch command
         display "[#{i}]", file
 
   when 'status'
-    get "#{base}/status", (e, r, body) ->
+    get '/status', (e, r, body) ->
       throw e if e
 
       if body.nowPlaying?
@@ -44,46 +56,27 @@ switch command
         console.log 'nothing playing'
 
   when 'add'
-    request.post
-      url: "#{base}/add"
-      json: true
-      body:
-        i: argv.i
-    , (e, r, file) ->
+    post '/add', {i: argv.i}, (e, r, file) ->
       throw e if e
       display '+', file
 
   when 'play'
-    request.post
-      url: "#{base}/play"
-      json: true
-      body:
-        i: argv.i
-    , (e, r, file) ->
+    post '/play', {i: argv.i}, (e, r, file) ->
       throw e if e
       display '>', file
 
   when 'pause'
-    request.post
-      url: "#{base}/pause"
-      json: true
-    , (e, r, file) ->
+    post '/pause', (e, r, file) ->
       throw e if e
       display '||', file
 
   when 'next'
-    request.post
-      url: "#{base}/next"
-      json: true
-    , (e, r, file) ->
+    post '/next', (e, r, file) ->
       throw e if e
       display '>>', file
 
   when 'prev'
-    request.post
-      url: "#{base}/prev"
-      json: true
-    , (e, r, file) ->
+    post '/prev', (e, r, file) ->
       throw e if e
       display '<<', file
 
