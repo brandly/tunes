@@ -11,17 +11,31 @@ login = ->
       deferred.resolve spotify
   deferred.promise
 
-get = (spotify, uri) ->
-  deferred = Q.defer()
-  spotify.get uri, (err, track) ->
+handle = (deferred) ->
+  return (err, res) ->
     if err
       deferred.reject err
     else
-      deferred.resolve track
+      deferred.resolve res
+
+get = (spotify, uri) ->
+  deferred = Q.defer()
+  spotify.get uri, handle deferred
+  deferred.promise
+
+search = (spotify, query) ->
+  deferred = Q.defer()
+  spotify.search query, handle deferred
   deferred.promise
 
 exports.get = (uri) ->
   login().then (spotify) ->
     get spotify, uri
+  , (e) ->
+    console.log 'ERROR GETTING', e
+
+exports.search = (query) ->
+  login().then (spotify) ->
+    search spotify, query
 
 login()

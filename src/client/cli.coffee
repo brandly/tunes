@@ -38,7 +38,7 @@ display = (pre, track) ->
 
 list = (files) ->
   for file, i in files
-    console.log "[#{i}]", file
+    display "[#{i}]", file
 
 switch command
   when 'search'

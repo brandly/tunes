@@ -35,10 +35,10 @@ class Playlist
   constructor: (@name) ->
     @files = getList @name
 
-  add: (file) ->
-    @files.push file
+  add: (track) ->
+    @files.push track.file
     @save()
-    return file
+    return track
 
   # remove: (i) ->
 
