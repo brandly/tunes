@@ -17,10 +17,10 @@ get = (spotify, uri) ->
     if err
       deferred.reject err
     else
-      deferred.resolve track.play()
+      deferred.resolve track
   deferred.promise
 
-exports.stream = (uri) ->
+exports.get = (uri) ->
   login().then (spotify) ->
     get spotify, uri
 

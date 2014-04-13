@@ -16,8 +16,8 @@ exports.status = ->
 
 # if np paused, play
 exports.playByIndex = (i) ->
-  playlist?.playByIndex(i).then (file) ->
-    nowPlaying = file
+  playlist?.playByIndex(i).then (track) ->
+    nowPlaying = track
 
 exports.resume = ->
   playlist?.resume()
@@ -41,4 +41,3 @@ exports.list = (name) ->
   exports.pause()
   playlist = new Playlist name
   exports.getList()
-

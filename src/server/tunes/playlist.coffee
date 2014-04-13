@@ -2,8 +2,8 @@ fs = require 'fs'
 Speaker = require 'speaker'
 lame = require 'lame'
 Throttle = require 'throttle'
-spotify = require './spotify.coffee'
 Q = require 'q'
+Track = require './track.coffee'
 
 folder = './lists'
 
@@ -25,18 +25,10 @@ getList = (name) ->
   catch e
     return []
 
-stream = (file) ->
-  if file.indexOf('spotify:') is 0
-    spotify.stream file
-  else
-    deferred = Q.defer()
-    deferred.resolve fs.createReadStream(file)
-    return deferred.promise
-
 class Playlist
   current: -1
   song: null
-  file: null
+  track: null
   speaker: null
   throttle: null
 
@@ -65,16 +57,16 @@ class Playlist
     @play @files[index]
 
   play: (file) ->
-    @pause()
-    @file = file
-    stream(file).then (mp3) =>
+    @stop()
+    Track.create(file).then (track) =>
+      @track = track
       @throttle = new Throttle(config.bitDepth * config.sampleRate)
       decoder = new lame.Decoder
         channels: config.channels
         bitDepth: config.bitDepth
         sampleRate: config.sampleRate
 
-      song = mp3.pipe decoder
+      song = track.stream().pipe decoder
 
       song.on 'error', (error) ->
         console.err 'error playing song:', error
@@ -83,21 +75,25 @@ class Playlist
           .pipe @_speaker()
 
       @song = song
-      return @file
+      return @track
 
   resume: ->
     if @song?
       @song.resume()
       @song.pipe @throttle
            .pipe @_speaker()
-      return @file
+      return @track
 
   pause: ->
     if @song?
       @song.unpipe()
       @speaker.end()
       @song.pause()
-      return @file
+      return @track
+
+  stop: ->
+    @pause()
+    @track = null
 
   # start: ->
   #   sound = @next()

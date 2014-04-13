@@ -10,7 +10,6 @@
 # tunes add -i
 request = require 'request'
 argv = require('minimist') process.argv.slice(2)
-id3 = require 'id3js'
 config = require '../config'
 
 base = 'http://127.0.0.1:' + config.port
@@ -34,17 +33,12 @@ post = (url, body, holla) ->
 
   request.post options, holla
 
-display = (pre, file) ->
-  if file.indexOf('spotify:') is 0
-    console.log "#{pre} #{file}"
-  else
-    id3 {file: file, type: id3.OPEN_LOCAL}, (err, tags) ->
-      throw err if err
-      console.log "#{pre} #{tags.v2.artist} - #{tags.v2.title}"
+display = (pre, track) ->
+  console.log "#{pre} #{track.artist} - #{track.title}"
 
 list = (files) ->
   for file, i in files
-    display "[#{i}]", file
+    console.log "[#{i}]", file
 
 switch command
   when 'search'
@@ -62,29 +56,29 @@ switch command
         console.log 'nothing playing'
 
   when 'add'
-    post '/add', {i: argv.i}, (e, r, file) ->
+    post '/add', {i: argv.i}, (e, r, track) ->
       throw e if e
-      display '+', file
+      display '+', track
 
   when 'play'
-    post '/play', {i: argv.i}, (e, r, file) ->
+    post '/play', {i: argv.i}, (e, r, track) ->
       throw e if e
-      display '>', file
+      display '>', track
 
   when 'pause'
-    post '/pause', (e, r, file) ->
+    post '/pause', (e, r, track) ->
       throw e if e
-      display '||', file
+      display '||', track
 
   when 'next'
-    post '/next', (e, r, file) ->
+    post '/next', (e, r, track) ->
       throw e if e
-      display '>>', file
+      display '>>', track
 
   when 'prev'
-    post '/prev', (e, r, file) ->
+    post '/prev', (e, r, track) ->
       throw e if e
-      display '<<', file
+      display '<<', track
 
   when 'list'
     name = argv._.shift()
