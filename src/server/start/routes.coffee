@@ -11,8 +11,11 @@ module.exports = (app) ->
     res.send tunes.status()
 
   app.post '/play', (req, res) ->
-    tunes.play(req.body.i).then (file) ->
-      res.send file
+    if req.body.i?
+      tunes.playByIndex(req.body.i).then (file) ->
+        res.send file
+    else
+      res.send tunes.resume()
 
   app.post '/pause', (req, res) ->
     res.send tunes.pause()

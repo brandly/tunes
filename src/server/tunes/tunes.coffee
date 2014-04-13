@@ -15,14 +15,13 @@ exports.status = ->
   {nowPlaying}
 
 # if np paused, play
-exports.play = (i) ->
-  if i?
-    playlist?.playByIndex(i).then (file) ->
-      nowPlaying = file
-  else
-    playlist?.resume()
+exports.playByIndex = (i) ->
+  playlist?.playByIndex(i).then (file) ->
+    nowPlaying = file
 
-# if np, pause it
+exports.resume = ->
+  playlist?.resume()
+
 exports.pause = ->
   playlist?.pause()
 
@@ -32,7 +31,6 @@ exports.next = ->
 exports.prev = ->
   nowPlaying = playlist?.prev()
 
-# from last results, add that song
 exports.add = (i) ->
   playlist?.add lastSearchResults[i]
 
