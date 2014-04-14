@@ -16,6 +16,7 @@
     "body-parser": "^1.0.1",
     "throttle": "^1.0.3",
     "spotify-web": "^1.1.1",
-    "lodash": "^2.4.1"
+    "lodash": "^2.4.1",
+    "q": "^1.0.1"
   }
 }
