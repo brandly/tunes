@@ -3,10 +3,10 @@ path = require 'path'
 mmm = require 'mmmagic'
 Magic = mmm.Magic
 Q = require 'q'
-spotify = require './spotify.coffee'
 xml2js = require 'xml2js'
 _ = require 'lodash'
 Track = require './track.coffee'
+request = require 'request'
 
 magic = new Magic mmm.MAGIC_MIME_TYPE
 
@@ -19,12 +19,15 @@ getMIME = (file) ->
       deferred.resolve mimeType
   deferred.promise
 
+getName = (item) ->
+  item.name[0]
+
 stripTrack = (track) ->
   return {
-    title: track.title[0]
-    artist: track.artist?.join(', ')
-    album: track.album[0]
-    file: "spotify:track:#{track.id[0]}"
+    title: track.name[0]
+    artist: track.artist?.map(getName).join(', ')
+    album: getName track.album[0]
+    file: track.$.href
   }
 
 parseXML = (xml) ->
@@ -34,8 +37,8 @@ parseXML = (xml) ->
       deferred.reject err
     else
       # dig through XML for the tracks
-      tracks = res.result.tracks[0].track
-      deferred.resolve tracks.map(stripTrack)
+      tracks = res.tracks.track
+      deferred.resolve tracks.slice(0, resultsPerSource).map(stripTrack)
   deferred.promise
 
 localSearch = (query) ->
@@ -68,11 +71,11 @@ localSearch = (query) ->
   deferred.promise
 
 spotifySearch = (query) ->
-  spotify.search
-    query: query
-    type: 'tracks'
-    maxResults: resultsPerSource
-  .then parseXML
+  deferred = Q.defer()
+  request.get "http://ws.spotify.com/search/1/track?q=#{encodeURIComponent query}", (e, r, body) ->
+    parseXML(body).then deferred.resolve, deferred.reject
+
+  deferred.promise
 
 resultsPerSource = 10
 exports.search = (query) ->
