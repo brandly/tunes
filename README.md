@@ -39,3 +39,15 @@ $ coffee src/client/client.coffee pause
 $ coffee src/client/client.coffee list chill
 > ++ chill
 ```
+
+### config
+
+this'll probably change, but you currently need to make your own `src/config.json`.
+
+```json
+{
+  "port": 8888,
+  "spotifyUsername": "coolguy69",
+  "spotifyPassword": "hunter2"
+}
+```
