@@ -37,7 +37,7 @@ exports.add = (i) ->
   playlist?.add lastSearchResults[i]
 
 exports.getList = ->
-  playlist?.files
+  playlist?.getTracks()
 
 exports.list = (name) ->
   exports.pause()

@@ -4,6 +4,7 @@ lame = require 'lame'
 Throttle = require 'throttle'
 Q = require 'q'
 Track = require './track.coffee'
+_ = require 'lodash'
 
 folder = './lists'
 
@@ -105,5 +106,12 @@ class Playlist
 
   save: ->
     fs.writeFileSync "#{folder}/#{@name}.json", JSON.stringify(@files)
+
+  getTracks: ->
+    promises = @files.map (file) ->
+      Track.create file
+
+    Q.all(promises).then (tracks) ->
+      _.flatten tracks
 
 module.exports = Playlist
