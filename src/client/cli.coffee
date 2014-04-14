@@ -1,7 +1,3 @@
-
-# parse inputs with like minimist or something
-# make requests to some local endpoints
-
 # tunes status
 # tunes play -i 3
 # tunes pause
