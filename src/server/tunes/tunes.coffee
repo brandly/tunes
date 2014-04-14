@@ -5,6 +5,9 @@ lastSearchResults = null
 nowPlaying = null
 playlist = null
 
+rememberTrack = (track) ->
+  nowPlaying = track
+
 exports.search = (query) ->
   finder.search(query).then (results) ->
     lastSearchResults = results
@@ -16,8 +19,7 @@ exports.status = ->
 
 # if np paused, play
 exports.playByIndex = (i) ->
-  playlist?.playByIndex(i).then (track) ->
-    nowPlaying = track
+  playlist?.playByIndex(i).then rememberTrack
 
 exports.resume = ->
   playlist?.resume()
@@ -26,10 +28,10 @@ exports.pause = ->
   playlist?.pause()
 
 exports.next = ->
-  nowPlaying = playlist?.next()
+  playlist?.next().then rememberTrack
 
 exports.prev = ->
-  nowPlaying = playlist?.prev()
+  playlist?.prev().then rememberTrack
 
 exports.add = (i) ->
   playlist?.add lastSearchResults[i]
