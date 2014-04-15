@@ -1,4 +1,4 @@
-finder = require './finder/finder.coffee'
+finder = require './finder.coffee'
 Playlist = require './playlist.coffee'
 
 lastSearchResults = null

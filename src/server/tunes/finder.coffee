@@ -1,7 +1,7 @@
 Q = require 'q'
 _ = require 'lodash'
-local = require './local.coffee'
-spotify = require './spotify.coffee'
+local = require './local/search.coffee'
+spotify = require './spotify/search.coffee'
 
 resultsPerSource = 10
 exports.search = (query) ->

@@ -1,6 +1,8 @@
-# finder
+# music sources
 
-expect a music source to export a single method
+## search
+
+make a file called `search.coffee`, and export a single method
 ```coffee
 exports.search = (query, count) ->
 ```
@@ -16,3 +18,5 @@ track =
 ```
 
 `file` is whatever allows the source to go fetch and play that track.
+
+## track
