@@ -3,6 +3,6 @@ local = require './local/track.coffee'
 
 exports.create = (file) ->
   if file.indexOf('spotify:') is 0
-    return spotify.track file
+    spotify.track file
   else
-    return local.track file
+    local.track file
