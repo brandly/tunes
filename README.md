@@ -13,32 +13,42 @@ $ coffee src/server/server.coffee
 
 ### client
 
+create a list called 'turnt'
 ```shell
-# create a list called 'turnt'
 $ coffee src/client/client.coffee list turnt
-> ++ turnt
+++ turnt
+```
 
-# search for mp3's on your computer
+search for mp3's on your computer
+```shell
 $ coffee src/client/client.coffee search flockaveli
-> [0] Wacka Flocka Flame - Bustin' at 'Em
-> [1] Wacka Flocka Flame - Hard in da Paint
-> ...
+[0] Wacka Flocka Flame - Bustin' at 'Em
+[1] Wacka Flocka Flame - Hard in da Paint
+...
+```
 
-# add track to turnt
+add track to turnt
+```shell
 $ coffee src/client/client.coffee add -i 1
-> + Wacka Flocka Flame - Hard in da Paint
++ Wacka Flocka Flame - Hard in da Paint
+```
 
-# play track from turnt
+play track from turnt
+```shell
 $ coffee src/client/client.coffee play -i 0
-> > Wacka Flocka Flame - Hard in da Paint
+> Wacka Flocka Flame - Hard in da Paint
+```
 
-# pause it
+pause it
+```shell
 $ coffee src/client/client.coffee pause
-> || Wacka Flocka Flame - Hard in da Paint
+|| Wacka Flocka Flame - Hard in da Paint
+```
 
-# make a different list...
+make a different list...
+```shell
 $ coffee src/client/client.coffee list chill
-> ++ chill
+++ chill
 ```
 
 ### config
