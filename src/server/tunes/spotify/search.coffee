@@ -5,7 +5,11 @@ xml2js = require 'xml2js'
 exports.search = (query, count) ->
   deferred = Q.defer()
   request.get "http://ws.spotify.com/search/1/track?q=#{encodeURIComponent query}", (e, r, body) ->
-    parseXML(body, count).then deferred.resolve, deferred.reject
+    if e
+      console.error 'Spotify search', e
+      deferred.resolve []
+    else
+      parseXML(body, count).then deferred.resolve, deferred.reject
 
   deferred.promise
 
