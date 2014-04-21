@@ -103,6 +103,9 @@ class Playlist
       files: @tracks.map (track) -> track.file
 
   getTracks: ->
-    Q(@tracks)
+    if @tracks
+      Q(@tracks)
+    else
+      @load()
 
 module.exports = Playlist
