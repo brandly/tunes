@@ -42,9 +42,12 @@ exports.playlists =
     Playlists.findOne {name}, (err, playlist) ->
       deferred.reject err if err
 
-      Tracks.find {
-        file: {'$in': playlist.files}
-      }, deferred.makeNodeResolver()
+      if playlist?.files?.length
+        Tracks.find {
+          file: {'$in': playlist.files}
+        }, deferred.makeNodeResolver()
+      else
+        deferred.resolve []
 
     deferred.promise
 
