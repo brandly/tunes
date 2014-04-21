@@ -1,5 +1,6 @@
 finder = require './finder.coffee'
 Playlist = require './playlist.coffee'
+db = require './db.coffee'
 
 lastSearchResults = null
 nowPlaying = null
@@ -34,7 +35,11 @@ exports.prev = ->
   playlist?.prev().then rememberTrack
 
 exports.add = (i) ->
-  playlist?.add lastSearchResults[i]
+  db.tracks.add(lastSearchResults[i]).then (track) ->
+    if playlist?
+      playlist.add track
+    else
+      track
 
 exports.getList = ->
   playlist?.getTracks()
@@ -42,4 +47,4 @@ exports.getList = ->
 exports.list = (name) ->
   exports.pause()
   playlist = new Playlist name
-  exports.getList()
+  playlist.load()

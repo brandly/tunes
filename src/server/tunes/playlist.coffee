@@ -5,6 +5,7 @@ Throttle = require 'throttle'
 Q = require 'q'
 Track = require './track.coffee'
 _ = require 'lodash'
+db = require('./db.coffee').playlists
 
 folder = './lists'
 
@@ -12,19 +13,6 @@ config =
   channels: 2
   bitDepth: 16
   sampleRate: 44100
-
-ensureExists = (dir)->
-  try
-    fs.mkdirSync dir
-  catch error
-    if error.code isnt 'EEXIST'
-      console.err 'ERROR', error
-
-getList = (name) ->
-  try
-    JSON.parse fs.readFileSync("#{folder}/#{name}.json").toString('utf-8')
-  catch e
-    return []
 
 class Playlist
   current: -1
@@ -34,28 +22,30 @@ class Playlist
   throttle: null
 
   constructor: (@name) ->
-    @files = getList @name
+
+  load: ->
+    db.get(@name).then (tracks) =>
+      @tracks = tracks
 
   add: (track) ->
-    @files.push track.file
-    @save()
-    return track
+    @tracks.push track
+    @save().then -> return track
 
   # remove: (i) ->
 
   next: ->
-    return unless @files.length
-    @current = (@current + 1) % @files.length
+    return unless @tracks.length
+    @current = (@current + 1) % @tracks.length
     @playByIndex @current
 
   prev: ->
-    return unless @files.length
+    return unless @tracks.length
     @current = Math.max 0, @current - 1
     @playByIndex @current
 
   playByIndex: (index) ->
     @current = index
-    @play @files[index]
+    @play @tracks[index].file
 
   play: (file) ->
     @stop()
@@ -105,13 +95,11 @@ class Playlist
     @speaker = new Speaker()
 
   save: ->
-    fs.writeFileSync "#{folder}/#{@name}.json", JSON.stringify(@files)
+    db.save
+      name: @name
+      files: @tracks.map (track) -> track.file
 
   getTracks: ->
-    promises = @files.map (file) ->
-      Track.create file
-
-    Q.all(promises).then (tracks) ->
-      _.flatten tracks
+    Q(@tracks)
 
 module.exports = Playlist

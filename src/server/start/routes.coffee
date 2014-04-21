@@ -28,9 +28,9 @@ module.exports = (app) ->
     tunes.prev().then (file) ->
       res.send file
 
-  # could pass index of last search results
   app.post '/add', (req, res) ->
-    res.send tunes.add(req.body.i)
+    tunes.add(req.body.i).then (track) ->
+      res.send track
 
   app.get '/list', (req, res) ->
     tunes.getList().then (list) ->
