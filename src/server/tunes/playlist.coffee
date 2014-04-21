@@ -51,12 +51,7 @@ class Playlist
     @stop()
     Track.create(file).then (track) =>
       @track = track
-      decoder = new lame.Decoder
-        channels: config.channels
-        bitDepth: config.bitDepth
-        sampleRate: config.sampleRate
-
-      song = track.stream().pipe decoder
+      song = track.stream().pipe @_decoder()
 
       song.on 'error', (error) ->
         console.err 'error playing song:', error
@@ -89,6 +84,12 @@ class Playlist
   #   sound = @next()
   #   playing = @play sound
   #   playing.on 'finish', => @start()
+
+  _decoder: ->
+    new lame.Decoder
+      channels: config.channels
+      bitDepth: config.bitDepth
+      sampleRate: config.sampleRate
 
   _throttle: ->
     @throttle = new Throttle(config.bitDepth * config.sampleRate)
