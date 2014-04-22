@@ -1,5 +1,6 @@
 db = require 'nedb'
 Q = require 'q'
+_ = require 'lodash'
 
 Tracks = new db
   filename: "#{__dirname}/db/tracks.db"
@@ -34,13 +35,27 @@ exports.tracks =
 
     deferred.promise
 
+  artists: ->
+    deferred = Q.defer()
+
+    Tracks.find {}, (err, tracks) ->
+      return deferred.reject err if err
+
+      artists = {}
+      tracks.forEach (track) ->
+        artists[track.artist] = true
+
+      deferred.resolve _.keys(artists).sort()
+
+    deferred.promise
+
 exports.playlists =
   # return a list of tracks
   get: (name) ->
     deferred = Q.defer()
 
     Playlists.findOne {name}, (err, playlist) ->
-      deferred.reject err if err
+      return deferred.reject err if err
 
       if playlist?.files?.length
         Tracks.find {

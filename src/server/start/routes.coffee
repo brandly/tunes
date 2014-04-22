@@ -44,6 +44,10 @@ module.exports = (app) ->
     tunes.list(req.body.name).then (list) ->
       res.send list
 
+  app.get '/artists', (req, res) ->
+    tunes.artists().then (artists) ->
+      res.send artists
+
   # add files, directories
   # app.post '/import', (req, res) ->
 

@@ -93,5 +93,11 @@ switch command
         throw e if e
         list files
 
+  when 'artists'
+    get '/artists', (e, r, artists) ->
+      throw e if e
+
+      console.log artist for artist in artists
+
   else
     console.log 'whatttt u talkin bout', command
