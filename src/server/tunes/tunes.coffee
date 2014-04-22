@@ -48,6 +48,5 @@ exports.getList = ->
   playlist?.getTracks()
 
 exports.list = (name) ->
-  exports.pause()
   playlist = new Playlist name
   playlist.load()
