@@ -1,5 +1,6 @@
 finder = require './finder.coffee'
 Playlist = require './playlist.coffee'
+player = require './player.coffee'
 db = require './db.coffee'
 
 lastSearchResults = null
@@ -14,19 +15,18 @@ exports.search = (query) ->
     lastSearchResults = results
     return results
 
-# return np
 exports.status = ->
   {nowPlaying}
 
 # if np paused, play
 exports.playByIndex = (i) ->
-  playlist?.playByIndex(i).then rememberTrack
+  player.play(playlist.tracks[i].file).then rememberTrack
 
 exports.resume = ->
-  playlist?.resume()
+  player.resume()
 
 exports.pause = ->
-  playlist?.pause()
+  player.pause()
 
 exports.next = ->
   playlist?.next().then rememberTrack
