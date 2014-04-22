@@ -56,6 +56,11 @@ switch command
       throw e if e
       display '+', track
 
+  when 'remove'
+    post '/remove', {i: argv.i}, (e, r, track) ->
+      throw e if e
+      display '-', track
+
   when 'play'
     post '/play', {i: argv.i}, (e, r, track) ->
       throw e if e

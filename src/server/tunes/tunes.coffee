@@ -41,6 +41,9 @@ exports.add = (i) ->
     else
       track
 
+exports.remove = (i) ->
+  playlist.remove i
+
 exports.getList = ->
   playlist?.getTracks()
 

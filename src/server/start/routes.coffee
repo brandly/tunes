@@ -32,6 +32,10 @@ module.exports = (app) ->
     tunes.add(req.body.i).then (track) ->
       res.send track
 
+  app.post '/remove', (req, res) ->
+    tunes.remove(req.body.i).then (track) ->
+      res.send track
+
   app.get '/list', (req, res) ->
     tunes.getList().then (list) ->
       res.send list

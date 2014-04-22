@@ -13,7 +13,10 @@ class Playlist
     @tracks.push track
     @save().then -> return track
 
-  # remove: (i) ->
+  remove: (i) ->
+    track = @tracks[i]
+    @tracks.splice i, 1
+    @save().then -> return track
 
   # next: ->
   #   return unless @tracks.length
