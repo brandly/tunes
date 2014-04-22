@@ -26,7 +26,7 @@ exports.tracks =
       file: track.file # upsert based on unique 'file'
     }, track, {
       upsert: true
-    }, (err, t) ->
+    }, (err) ->
       if err
         deferred.reject err
       else
