@@ -40,6 +40,10 @@ module.exports = (app) ->
     tunes.getList().then (list) ->
       res.send list
 
+  app.get '/list/names', (req, res) ->
+    tunes.listNames().then (names) ->
+      res.send names
+
   app.post '/list', (req, res) ->
     tunes.list(req.body.name).then (list) ->
       res.send list

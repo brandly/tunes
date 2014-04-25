@@ -51,6 +51,9 @@ exports.list = (name) ->
   playlist = new Playlist name
   playlist.load()
 
+exports.listNames = ->
+  db.playlists.names()
+
 exports.artists = ->
   db.tracks.artists()
 

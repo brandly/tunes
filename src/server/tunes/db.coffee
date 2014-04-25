@@ -86,3 +86,5 @@ exports.playlists =
         deferred.resolve()
 
     deferred.promise
+
+  names: unique(Playlists, 'name')

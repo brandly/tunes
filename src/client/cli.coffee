@@ -88,6 +88,10 @@ switch command
         throw e if e
         console.log '++', name
         list files
+    else if argv.a
+      get '/list/names', (e, r, names) ->
+        throw e if e
+        console.log name for name in names
     else
       get '/list', (e, r, files) ->
         throw e if e
