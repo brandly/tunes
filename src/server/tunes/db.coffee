@@ -18,6 +18,22 @@ Playlists.ensureIndex
   fieldName: 'name'
   unique: true
 
+# return all unique values for a field within a collection
+unique = (collection, field) ->
+  return ->
+    deferred = Q.defer()
+
+    collection.find {}, (err, objects) ->
+      return deferred.reject err if err
+
+      uniques = {}
+      objects.forEach (obj) ->
+        uniques[obj[field]] = true
+
+      deferred.resolve _.keys(uniques).sort()
+
+    deferred.promise
+
 exports.tracks =
   # whenever a track gets added, to a playlist, it should get added to the db
   add: (track) ->
@@ -35,19 +51,9 @@ exports.tracks =
 
     deferred.promise
 
-  artists: ->
-    deferred = Q.defer()
+  artists: unique(Tracks, 'artist')
 
-    Tracks.find {}, (err, tracks) ->
-      return deferred.reject err if err
-
-      artists = {}
-      tracks.forEach (track) ->
-        artists[track.artist] = true
-
-      deferred.resolve _.keys(artists).sort()
-
-    deferred.promise
+  albums: unique(Tracks, 'album')
 
 exports.playlists =
   # return a list of tracks

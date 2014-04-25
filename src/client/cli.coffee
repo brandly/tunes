@@ -99,5 +99,11 @@ switch command
 
       console.log artist for artist in artists
 
+  when 'albums'
+    get '/albums', (e, r, albums) ->
+      throw e if e
+
+      console.log album for album in albums
+
   else
     console.log 'whatttt u talkin bout', command

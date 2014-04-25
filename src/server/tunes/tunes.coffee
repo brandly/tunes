@@ -53,3 +53,6 @@ exports.list = (name) ->
 
 exports.artists = ->
   db.tracks.artists()
+
+exports.albums = ->
+  db.tracks.albums()
