@@ -4,24 +4,17 @@ config = require '../../../config.json'
 
 login = ->
   deferred = Q.defer()
-  Spotify.login config.spotifyUsername, config.spotifyPassword, handle deferred
+  Spotify.login config.spotifyUsername, config.spotifyPassword, deferred.makeNodeResolver()
   deferred.promise
-
-handle = (deferred) ->
-  return (err, res) ->
-    if err
-      deferred.reject err
-    else
-      deferred.resolve res
 
 get = (spotify, uri) ->
   deferred = Q.defer()
-  spotify.get uri, handle deferred
+  spotify.get uri, deferred.makeNodeResolver()
   deferred.promise
 
 search = (spotify, query) ->
   deferred = Q.defer()
-  spotify.search query, handle deferred
+  spotify.search query, deferred.makeNodeResolver()
   deferred.promise
 
 exports.get = (uri) ->
