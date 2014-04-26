@@ -30,6 +30,9 @@
     "lodash": "^2.4.1",
     "q": "^1.0.1",
     "nedb": "^0.10.5",
-    "nodewebkit": "^0.8.6"
+    "nodewebkit": "^0.8.6",
+    "gulp": "^3.6.2",
+    "gulp-concat": "^2.2.0",
+    "gulp-coffee": "^1.4.2"
   }
 }
