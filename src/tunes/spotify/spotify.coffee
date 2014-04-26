@@ -1,6 +1,6 @@
 Q = require 'q'
 Spotify = require 'spotify-web'
-config = require '../../../config.json'
+config = require '../../config.json'
 
 login = ->
   deferred = Q.defer()
