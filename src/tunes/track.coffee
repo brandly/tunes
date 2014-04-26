@@ -1,5 +1,5 @@
-spotify = require './spotify/track.coffee'
-local = require './local/track.coffee'
+spotify = require './spotify/track'
+local = require './local/track'
 
 exports.create = (file) ->
   if file.indexOf('spotify:') is 0

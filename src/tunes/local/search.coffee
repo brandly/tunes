@@ -2,7 +2,7 @@ Q = require 'q'
 findit = require 'findit'
 mmm = require 'mmmagic'
 Magic = mmm.Magic
-Track = require '../track.coffee'
+Track = require '../track'
 magic = new Magic mmm.MAGIC_MIME_TYPE
 
 exports.search = (query, count) ->

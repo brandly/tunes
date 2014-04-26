@@ -1,5 +1,5 @@
 Q = require 'q'
-db = require('./db.coffee').playlists
+db = require('./db').playlists
 
 class Playlist
 

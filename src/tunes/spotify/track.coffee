@@ -1,4 +1,4 @@
-spotify = require './spotify.coffee'
+spotify = require './spotify'
 
 exports.track = (file) ->
   spotify.get(file).then (track) ->

@@ -1,7 +1,7 @@
 Speaker = require 'speaker'
 lame = require 'lame'
 Throttle = require 'throttle'
-Track = require './track.coffee'
+Track = require './track'
 
 config =
   channels: 2

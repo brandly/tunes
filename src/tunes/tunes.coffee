@@ -1,7 +1,7 @@
-finder = require './finder.coffee'
-Playlist = require './playlist.coffee'
-player = require './player.coffee'
-db = require './db.coffee'
+finder = require './finder'
+Playlist = require './playlist'
+player = require './player'
+db = require './db'
 
 lastSearchResults = null
 nowPlaying = null
