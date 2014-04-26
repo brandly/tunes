@@ -11,7 +11,9 @@
   "window": {
     "title": "tunes",
     "toolbar": false,
-    "frame": true
+    "frame": true,
+    "width": 1000,
+    "height": 600
   },
   "dependencies": {
     "speaker": "0.0.10",
