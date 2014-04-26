@@ -4,6 +4,15 @@
   "author": "Matthew Brandly",
   "version": "0.0.1",
   "private": true,
+  "scripts": {
+    "start": "nodewebkit"
+  },
+  "main": "build/index.html",
+  "window": {
+    "title": "tunes",
+    "toolbar": false,
+    "frame": true
+  },
   "dependencies": {
     "speaker": "0.0.10",
     "lame": "^1.0.3",
@@ -18,6 +27,7 @@
     "spotify-web": "^1.1.1",
     "lodash": "^2.4.1",
     "q": "^1.0.1",
-    "nedb": "^0.10.5"
+    "nedb": "^0.10.5",
+    "nodewebkit": "^0.8.6"
   }
 }
