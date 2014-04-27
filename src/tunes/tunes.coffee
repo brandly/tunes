@@ -22,6 +22,9 @@ exports.status = ->
 exports.playByIndex = (i) ->
   player.play(playlist.tracks[i].file).then rememberTrack
 
+exports.play = (file) ->
+  player.play(file).then rememberTrack
+
 exports.resume = ->
   player.resume()
 
