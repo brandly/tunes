@@ -26,9 +26,9 @@ angular.module('tunes.services')
   tunes = {}
 
   promises.forEach (method) ->
-    tunes[method] = ->
+    tunes[method] = (args...) ->
       deferred = $q.defer()
-      tunesLib[method]().then deferred.resolve, deferred.reject
+      tunesLib[method].apply(tunesLib, args).then deferred.resolve, deferred.reject
       deferred.promise
 
   values.forEach (method) ->
