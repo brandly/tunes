@@ -5,6 +5,8 @@
 }
 
 .search-results {
+  width: 100%;
+
   th {
     color: #bbb;
     text-transform: uppercase;
@@ -14,5 +16,9 @@
 
   td {
     padding: 5px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow-x: hidden;
+    max-width: 10px; // lets the table collapse?
   }
 }
