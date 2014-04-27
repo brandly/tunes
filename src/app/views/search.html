@@ -1,5 +1,17 @@
-<ul class="search-result-list track-list">
-  <li ng-repeat="track in searchResults" ng-dblclick="playTrack(track)">
-    {{track.artist}} - {{track.title}}
-  </li>
-</ul>
+<h2 class="searching-for">searching for {{searchQuery}}</h2>
+<table class="search-results" ng-show="searchResults">
+  <thead>
+    <tr>
+      <th>song</th>
+      <th>artist</th>
+      <th>album</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="track in searchResults" ng-dblclick="playTrack(track)">
+      <td>{{track.artist}}</td>
+      <td>{{track.title}}</td>
+      <td>{{track.album}}</td>
+    </tr>
+  </tbody>
+</table>

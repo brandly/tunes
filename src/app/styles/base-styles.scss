@@ -8,8 +8,12 @@ body {
           user-select: none;
 }
 
-li {
+li, tbody > tr {
   &:hover {
     background-color: #fafafa;
   }
+}
+
+th {
+  text-align: left;
 }
