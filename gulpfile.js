@@ -61,7 +61,12 @@ gulp.task('copy:views', function () {
     .pipe(gulp.dest('build/views/'));
 });
 
-gulp.task('copy', ['copy:config', 'copy:index', 'copy:views']);
+gulp.task('copy:fonts', function () {
+  return gulp.src('src/app/styles/fonts/*')
+    .pipe(gulp.dest('build/fonts/'));
+});
+
+gulp.task('copy', ['copy:config', 'copy:index', 'copy:views', 'copy:fonts']);
 
 gulp.task('sass', function () {
     return gulp.src('src/app/styles/styles.scss')
