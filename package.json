@@ -10,7 +10,7 @@
   "main": "build/index.html",
   "window": {
     "title": "tunes",
-    "toolbar": false,
+    "toolbar": true,
     "frame": true,
     "width": 1000,
     "height": 600
