@@ -17,6 +17,24 @@ angular.module('tunes', dependencies).config(['$stateProvider', '$urlRouterProvi
       templateUrl: 'views/app.html'
       controller: 'AppCtrl'
 
+    .state 'search',
+      parent: 'app'
+      url: '/search?q'
+      templateUrl: 'views/search.html'
+      controller: 'SearchCtrl'
+
+    .state 'artists',
+      parent: 'app'
+      url: '/artists'
+      templateUrl: 'views/artists.html'
+      controller: 'ArtistsCtrl'
+
+    .state 'albums',
+      parent: 'app'
+      url: '/albums'
+      templateUrl: 'views/albums.html'
+      controller: 'AlbumsCtrl'
+
     $urlRouterProvider.otherwise '/'
 
 ])
