@@ -25,4 +25,6 @@ angular.module('tunes')
 
   $scope.viewArtists = -> $state.go 'artists'
   $scope.viewAlbums = -> $state.go 'albums'
+  $scope.viewPlaylist = (name) ->
+    $state.go 'playlist', {name}
 ]

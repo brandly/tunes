@@ -35,6 +35,12 @@ angular.module('tunes', dependencies).config(['$stateProvider', '$urlRouterProvi
       templateUrl: 'views/albums.html'
       controller: 'AlbumsCtrl'
 
+    .state 'playlist',
+      parent: 'app'
+      url: '/playlist?name'
+      templateUrl: 'views/playlist.html'
+      controller: 'PlaylistCtrl'
+
     $urlRouterProvider.otherwise '/'
 
 ])
