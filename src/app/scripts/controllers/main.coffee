@@ -1,9 +1,14 @@
 angular.module('tunes')
 
-.controller 'MainCtrl', ['$scope', '$tunes', ($scope, $tunes) ->
+.controller 'MainCtrl', ['$scope', '$tunes', '_', ($scope, $tunes, _) ->
   $scope.sup = 'hellllllo'
+  $scope.query =
+    search: ''
   $scope.tracks = null
 
-  $tunes.search('wayne').then (tracks) ->
-    $scope.tracks = tracks
+  $scope.$watch 'query.search', _.debounce (value) ->
+    $scope.$apply ->
+      $tunes.search(value).then (tracks) ->
+        $scope.tracks = tracks
+  , 300
 ]
