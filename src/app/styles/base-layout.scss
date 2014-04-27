@@ -1,0 +1,14 @@
+$side-menu-width: 200px;
+
+.side-menu {
+  width: $side-menu-width;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  padding: 20px;
+  box-shadow: -1px 0 4px rgb(30, 30, 30);
+}
+
+.content {
+  margin-left: $side-menu-width;
+}
