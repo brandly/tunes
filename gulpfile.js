@@ -5,6 +5,9 @@ coffee = require('gulp-coffee'),
 es = require('event-stream'),
 concat = require('gulp-concat'),
 shell = require('gulp-shell'),
+gutil = require('gulp-util'),
+sass = require('gulp-sass'),
+minify = require('gulp-minify-css'),
 uglify = require('gulp-uglify');
 
 gulp.task('coffee:tunes', function () {
@@ -59,6 +62,15 @@ gulp.task('copy:views', function () {
 
 gulp.task('copy', ['copy:config', 'copy:index', 'copy:views']);
 
+gulp.task('sass', function () {
+    return gulp.src('src/app/styles/styles.scss')
+        .pipe(sass())
+        .on('error', gutil.log)
+        .pipe(minify())
+        .pipe(concat('the.css'))
+        .pipe(gulp.dest('build/'));
+});
+
 var
 modulesNeedRebuilding = [
   'mmmagic',
@@ -82,7 +94,7 @@ var rebuildSubtasks = modulesNeedRebuilding.map(rebuildTaskName);
 
 gulp.task('rebuild:modules', rebuildSubtasks);
 
-gulp.task('build', ['copy', 'scripts']);
+gulp.task('build', ['copy', 'scripts', 'sass']);
 
 gulp.task('default', ['build'], function () {
   gulp.watch(['src/**'], ['build']);
