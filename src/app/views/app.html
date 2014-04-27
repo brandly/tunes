@@ -26,4 +26,19 @@
 
 <div class="content" ui-view></div>
 
-<div class="player"></div>
+<div class="player">
+  <div class="player-controls">
+    <a class="button prev-button" ng-click="player.prev()">
+      <i class="fa fa-step-backward"></i>
+    </a>
+<!--     <a class="button play-button" ng-click="player.play()" ng-show="player.current.sound.paused">
+      <i class="fa fa-play"></i>
+    </a> -->
+    <a class="button pause-button" ng-click="player.pause()">
+      <i class="fa fa-pause"></i>
+    </a>
+    <a class="button skip-button" ng-click="player.next()">
+      <i class="fa fa-step-forward"></i>
+    </a>
+  </div>
+</div>
