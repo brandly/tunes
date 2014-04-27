@@ -15,7 +15,10 @@ angular.module('tunes')
 
   $scope.createPlaylist = (name) ->
     return unless name?.length
-    $tunes.list(name).then refreshPlaylistList
+    $tunes.list(name).then ->
+      refreshPlaylistList()
+      $scope.viewPlaylist name
+      $scope.newPlaylist = ''
 
   refreshPlaylistList = ->
     $tunes.listNames().then (playlists) ->
