@@ -2,8 +2,10 @@ var
 gulp = require('gulp'),
 config = require('./package'),
 coffee = require('gulp-coffee'),
+es = require('event-stream'),
 concat = require('gulp-concat'),
-shell = require('gulp-shell');
+shell = require('gulp-shell'),
+uglify = require('gulp-uglify');
 
 gulp.task('coffee:tunes', function () {
   return gulp.src('src/tunes/**/*.coffee')
@@ -11,12 +13,28 @@ gulp.task('coffee:tunes', function () {
     .pipe(gulp.dest('build/tunes/'));
 });
 
-gulp.task('coffee:app', function () {
-  return gulp.src('src/app/scripts/**/*.coffee')
-    .pipe(coffee())
-    .pipe(concat('app.js'))
-    .pipe(gulp.dest('build/'));
-});
+// combine js libs with coffee src
+function createScriptsTask (scripts) {
+  return function () {
+    var
+    libs = gulp.src(scripts.js),
+
+    compiled = gulp.src(scripts.coffee)
+                   .pipe(concat('null'))
+                   .pipe(coffee({ join: true }));
+
+    return es.merge(libs, compiled)
+             .pipe(concat(scripts.dest))
+             .pipe(uglify())
+             .pipe(gulp.dest('build/'));
+  }
+}
+
+gulp.task('coffee:app', createScriptsTask({
+  coffee: 'src/app/scripts/**/*.coffee',
+  js: 'src/app/scripts/lib/*.js',
+  dest: 'app.js'
+}))
 
 gulp.task('scripts', ['coffee:tunes', 'coffee:app']);
 
