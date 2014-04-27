@@ -5,4 +5,7 @@ angular.module('tunes')
 
   $tunes.search($stateParams.q).then (tracks) ->
     $scope.searchResults = tracks
+
+  $scope.playTrack = (track) ->
+    $tunes.play track.file
 ]

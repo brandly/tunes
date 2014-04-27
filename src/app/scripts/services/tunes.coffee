@@ -6,6 +6,7 @@ angular.module('tunes.services')
   promises = [
     'search'
     'playByIndex'
+    'play'
     'next'
     'prev'
     'add'

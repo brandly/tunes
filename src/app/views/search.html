@@ -1,5 +1,5 @@
 <ul class="search-result-list track-list">
-  <li ng-repeat="track in searchResults">
+  <li ng-repeat="track in searchResults" ng-dblclick="playTrack(track)">
     {{track.artist}} - {{track.title}}
   </li>
 </ul>
