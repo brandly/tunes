@@ -30,4 +30,7 @@ angular.module('tunes')
   $scope.viewAlbums = -> $state.go 'albums'
   $scope.viewPlaylist = (name) ->
     $state.go 'playlist', {name}
+
+  $scope.player =
+    pause: $tunes.pause
 ]
