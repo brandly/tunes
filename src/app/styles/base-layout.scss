@@ -1,14 +1,25 @@
 $side-menu-width: 200px;
+$player-height: 100px;
 
 .side-menu {
   width: $side-menu-width;
   height: 100%;
-  position: absolute;
+  position: fixed;
   left: 0;
-  padding: 20px;
-  box-shadow: -1px 0 4px rgb(30, 30, 30);
+  top: 0;
+  margin-bottom: $player-height;
+  overflow-y: auto;
 }
 
 .content {
   margin-left: $side-menu-width;
+  margin-bottom: $player-height;
+}
+
+.player {
+  width: 100%;
+  height: $player-height;
+  position: fixed;
+  bottom: 0;
+  left: 0;
 }

@@ -1,6 +1,9 @@
 $main-font-size: 16px;
 
 .side-menu {
+  padding: 20px;
+  box-shadow: -5px 0 10px rgb(30, 30, 30);
+
   .section {
     margin: 20px 0;
     font-size: $main-font-size;
@@ -19,14 +22,18 @@ $main-font-size: 16px;
     margin: 10px 0;
     text-transform: uppercase;
     color: #bbb;
-    font-size: 8px;
+    font-size: 10px;
   }
 
   .list {
-    margin-left: 5px;
 
     li {
+      padding-left: 5px;
       line-height: 22px;
+
+      &:hover {
+        background-color: #fafafa;
+      }
     }
   }
 
