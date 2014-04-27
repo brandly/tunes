@@ -11,7 +11,14 @@ gulp.task('coffee:tunes', function () {
     .pipe(gulp.dest('build/tunes/'));
 });
 
-gulp.task('scripts', ['coffee:tunes']);
+gulp.task('coffee:app', function () {
+  return gulp.src('src/app/scripts/**/*.coffee')
+    .pipe(coffee())
+    .pipe(concat('app.js'))
+    .pipe(gulp.dest('build/'));
+});
+
+gulp.task('scripts', ['coffee:tunes', 'coffee:app']);
 
 gulp.task('copy:config', function () {
   return gulp.src('src/config.json')
