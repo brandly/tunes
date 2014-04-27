@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html ng-app="tunes">
   <head>
+    <meta charset="utf-8">
   </head>
   <body ng-controller="MainCtrl">
     <h1>{{sup}}</h1>
+    <input ng-model="query.search">
     <ul>
       <li ng-repeat="track in tracks">
         {{track.artist}} - {{track.title}}
