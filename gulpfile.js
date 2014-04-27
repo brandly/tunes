@@ -33,6 +33,7 @@ function createScriptsTask (scripts) {
 gulp.task('coffee:app', createScriptsTask({
   js: [
     'bower_components/angular/angular.js',
+    'bower_components/lodash/dist/lodash.js',
     'src/app/scripts/lib/*.js'
   ],
   coffee: 'src/app/scripts/**/*.coffee',
