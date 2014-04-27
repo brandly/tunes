@@ -1,6 +1,6 @@
 angular.module('tunes')
 
-.controller 'MainCtrl', ['$scope', '$tunes', '_', ($scope, $tunes, _) ->
+.controller 'AppCtrl', ['$scope', '$tunes', '_', ($scope, $tunes, _) ->
   $scope.sup = 'hellllllo'
   $scope.query =
     search: ''

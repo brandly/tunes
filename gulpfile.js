@@ -52,6 +52,13 @@ gulp.task('copy:index', function () {
     .pipe(gulp.dest('build/'));
 });
 
+gulp.task('copy:views', function () {
+  return gulp.src('src/app/views/*.html')
+    .pipe(gulp.dest('build/views/'));
+});
+
+gulp.task('copy', ['copy:config', 'copy:index', 'copy:views']);
+
 var
 modulesNeedRebuilding = [
   'mmmagic',
@@ -75,7 +82,7 @@ var rebuildSubtasks = modulesNeedRebuilding.map(rebuildTaskName);
 
 gulp.task('rebuild:modules', rebuildSubtasks);
 
-gulp.task('build', ['copy:config', 'copy:index', 'scripts']);
+gulp.task('build', ['copy', 'scripts']);
 
 gulp.task('default', ['build'], function () {
   gulp.watch(['src/**'], ['build']);
