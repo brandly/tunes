@@ -1,0 +1,26 @@
+.side-menu {
+  width: 200px;
+  height: 100%;
+  float: left;
+  padding: 20px;
+
+  .section {
+    margin: 20px 0;
+  }
+
+  .search {
+    width: 100%;
+  }
+
+  .section-heading {
+    margin: 10px 0;
+  }
+
+  .list {
+    margin: 10px 0 10px 5px;
+
+    li {
+      line-height: 22px;
+    }
+  }
+}

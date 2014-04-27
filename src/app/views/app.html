@@ -1,7 +1,30 @@
-<h1>{{sup}}</h1>
-<input ng-model="query.search">
-<ul>
-  <li ng-repeat="track in tracks">
+<div class="side-menu">
+  <div class="section">
+    <input class="search" ng-model="query.search" placeholder="search...">
+  </div>
+
+  <div class="section">
+    <h3 class="section-heading">your music</h3>
+    <ul class="list your-music-list">
+      <li>artists</li>
+      <li>albums</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h3 class="section-heading">playlists</h3>
+    <ul class="list playlist-list">
+      <li ng-repeat="playlist in playlists">
+        {{playlist}}
+      </li>
+    </ul>
+  </div>
+</div>
+
+<ul class="search-result-list">
+  <li ng-repeat="track in searchResults">
     {{track.artist}} - {{track.title}}
   </li>
 </ul>
+
+<div class="player"></div>
