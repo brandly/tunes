@@ -13,7 +13,9 @@
     "toolbar": true,
     "frame": true,
     "width": 1000,
-    "height": 600
+    "height": 600,
+    "min_width": 600,
+    "min_height": 400
   },
   "dependencies": {
     "speaker": "0.0.10",
