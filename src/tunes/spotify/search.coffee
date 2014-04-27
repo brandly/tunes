@@ -21,7 +21,7 @@ parseXML = (xml, count) ->
     else
       # dig through XML for the tracks
       tracks = res.tracks.track
-      deferred.resolve tracks.slice(0, count).map(stripTrack)
+      deferred.resolve tracks?.slice(0, count).map(stripTrack)
   deferred.promise
 
 stripTrack = (track) ->
