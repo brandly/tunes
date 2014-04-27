@@ -1,3 +1,5 @@
+$main-font-size: 16px;
+
 .side-menu {
   width: 200px;
   height: 100%;
@@ -6,21 +8,37 @@
 
   .section {
     margin: 20px 0;
+    font-size: $main-font-size;
   }
 
   .search {
+    border: 0;
+    outline: 0;
     width: 100%;
+    font-size: 18px;
+    line-height: 24px;
+    color: #555;
   }
 
   .section-heading {
     margin: 10px 0;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: #bbb;
+    font-size: 12px;
   }
 
   .list {
-    margin: 10px 0 10px 5px;
+    margin-left: 5px;
 
     li {
       line-height: 22px;
     }
+  }
+
+  .new-playlist {
+    border: 0;
+    outline: 0;
+    font-size: $main-font-size - 4;
   }
 }
