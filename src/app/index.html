@@ -1,0 +1,20 @@
+<DOCTYPE html>
+<html>
+  <head>
+  </head>
+  <body>
+    <h1>hello</h1>
+    <div id="tracks"></div>
+    <script>
+      var tunes = require('./tunes/tunes');
+      var tracks = document.getElementById('tracks');
+      tunes.search('wayne').then(function (results) {
+        for (var i = 0; i < results.length; i++) {
+          var p = document.createElement('p');
+          p.innerText = results[i].artist + ' - ' + results[i].title;
+          tracks.appendChild(p);
+        }
+      });
+    </script>
+  </body>
+</html>
