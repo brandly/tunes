@@ -14,10 +14,13 @@
   <div class="section">
     <h3 class="section-heading">playlists</h3>
     <ul class="list playlist-list">
-      <li ng-repeat="playlist in playlists">
+      <li ng-repeat="playlist in playlists | orderBy:'+'">
         {{playlist}}
       </li>
     </ul>
+    <form class="create-playlist" ng-submit="createPlaylist(newPlaylist)">
+      <input class="new-playlist" ng-model="newPlaylist" placeholder="new playlist">
+    </form>
   </div>
 </div>
 

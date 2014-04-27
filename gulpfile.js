@@ -24,7 +24,8 @@ function createScriptsTask (scripts) {
 
     compiled = gulp.src(scripts.coffee)
                    .pipe(concat('null'))
-                   .pipe(coffee({ join: true }));
+                   .pipe(coffee())
+                   .on('error', gutil.log);
 
     return es.merge(libs, compiled)
              .pipe(concat(scripts.dest))
