@@ -1,7 +1,9 @@
 var
 gulp = require('gulp'),
+config = require('./package'),
 coffee = require('gulp-coffee'),
-concat = require('gulp-concat');
+concat = require('gulp-concat'),
+shell = require('gulp-shell');
 
 gulp.task('coffee:tunes', function () {
   return gulp.src('src/tunes/**/*.coffee')
@@ -22,9 +24,30 @@ gulp.task('copy:config', function () {
     .pipe(gulp.dest('build/'));
 });
 
-gulp.task('build', ['copy:config', 'scripts'], function () {
-  console.log('hell0');
+var
+modulesNeedRebuilding = [
+  'mmmagic',
+  'lame',
+  'speaker'
+],
+targetNodewebkitVersion = config.dependencies.nodewebkit.match(/\d+\.\d+\.\d+/),
+rebuildCommand = 'nw-gyp rebuild --target=' + targetNodewebkitVersion;
+
+function rebuildTaskName(module) {
+  return 'rebuid:' + module;
+}
+
+modulesNeedRebuilding.forEach(function (module) {
+  gulp.task(rebuildTaskName(module), shell.task([
+    'cd node_modules/' + module + ' && ' + rebuildCommand
+  ]));
 });
+
+var rebuildSubtasks = modulesNeedRebuilding.map(rebuildTaskName);
+
+gulp.task('rebuild:modules', rebuildSubtasks);
+
+gulp.task('build', ['copy:config', 'scripts']);
 
 gulp.task('default', ['build'], function () {
   gulp.watch(['src/**'], ['build']);

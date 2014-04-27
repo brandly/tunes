@@ -1,64 +1,32 @@
 # tunes
 
 ```shell
-$ npm install -g coffee-script
+$ npm install -g gulp
 $ npm install
 ```
 
-### server
-
-```shell
-$ coffee src/server/server.coffee
-```
-
-### client
-
-create a list called 'turnt'
-```shell
-$ coffee src/client/client.coffee list turnt
-++ turnt
-```
-
-search for mp3's on your computer
-```shell
-$ coffee src/client/client.coffee search flockaveli
-[0] Wacka Flocka Flame - Bustin' at 'Em
-[1] Wacka Flocka Flame - Hard in da Paint
-...
-```
-
-add track to turnt
-```shell
-$ coffee src/client/client.coffee add -i 1
-+ Wacka Flocka Flame - Hard in da Paint
-```
-
-play track from turnt
-```shell
-$ coffee src/client/client.coffee play -i 0
-> Wacka Flocka Flame - Hard in da Paint
-```
-
-pause it
-```shell
-$ coffee src/client/client.coffee pause
-|| Wacka Flocka Flame - Hard in da Paint
-```
-
-make a different list...
-```shell
-$ coffee src/client/client.coffee list chill
-++ chill
-```
-
-### config
-
 this'll probably change, but you currently need to make your own `src/config.json`.
-
 ```json
 {
   "port": 8888,
   "spotifyUsername": "coolguy69",
   "spotifyPassword": "hunter2"
 }
+```
+
+some modules need to be rebuilt to work with node-webkit i guess.
+```shell
+$ gulp rebuild:modules
+```
+
+then, go into `node_modules/spotify-web/node_modules/protobufjs/ProtoBuf.js`, and find the line that sets `Util.IS_NODE`. replace the comparison with `Util.IS_NODE = true`.
+
+build the app
+```shell
+$ gulp
+```
+
+and run it
+```shell
+$ npm start
 ```

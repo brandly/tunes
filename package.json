@@ -33,6 +33,7 @@
     "nodewebkit": "^0.8.6",
     "gulp": "^3.6.2",
     "gulp-concat": "^2.2.0",
-    "gulp-coffee": "^1.4.2"
+    "gulp-coffee": "^1.4.2",
+    "gulp-shell": "^0.2.4"
   }
 }
