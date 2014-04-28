@@ -3,7 +3,7 @@ _ = require 'lodash'
 local = require './local/search'
 spotify = require './spotify/search'
 
-resultsPerSource = 10
+resultsPerSource = 30
 exports.search = (query) ->
   Q.all [
     local.search(query, resultsPerSource)
