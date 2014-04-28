@@ -87,7 +87,7 @@ targetNodewebkitVersion = config.dependencies.nodewebkit.match(/\d+\.\d+\.\d+/),
 rebuildCommand = 'nw-gyp rebuild --target=' + targetNodewebkitVersion;
 
 function rebuildTaskName(module) {
-  return 'rebuid:' + module;
+  return 'rebuild:' + module;
 }
 
 modulesNeedRebuilding.forEach(function (module) {
