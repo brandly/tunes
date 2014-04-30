@@ -17,3 +17,7 @@ li, tbody > tr {
 th {
   text-align: left;
 }
+
+[draggable] {
+  -webkit-user-drag: element;
+}

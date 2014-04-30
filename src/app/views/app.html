@@ -14,7 +14,7 @@
   <div class="section">
     <h3 class="section-heading">Playlists</h3>
     <ul class="list playlist-list">
-      <li ng-repeat="playlist in playlists | orderBy:'+'" ng-click="viewPlaylist(playlist)">
+      <li ng-repeat="playlist in playlists | orderBy:'+'" ng-click="viewPlaylist(playlist)" drop-track="addToPlaylist(playlist, file)">
         {{playlist}}
       </li>
     </ul>

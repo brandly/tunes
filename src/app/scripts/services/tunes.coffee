@@ -12,6 +12,7 @@ angular.module('tunes.services')
     'add'
     'getList'
     'list'
+    'addFileToPlaylist'
     'listNames'
     'artists'
     'albums'

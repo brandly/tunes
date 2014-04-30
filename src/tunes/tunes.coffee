@@ -1,5 +1,7 @@
+Q = require 'q'
 finder = require './finder'
 Playlist = require './playlist'
+Track = require './track'
 player = require './player'
 db = require './db'
 
@@ -37,8 +39,9 @@ exports.next = ->
 exports.prev = ->
   playlist?.prev().then rememberTrack
 
-exports.add = (i) ->
-  db.tracks.add(lastSearchResults[i]).then (track) ->
+exports.add = (file) ->
+
+  db.tracks.add(file).then (track) ->
     if playlist?
       playlist.add track
     else
@@ -53,6 +56,12 @@ exports.getList = ->
 exports.list = (name) ->
   playlist = new Playlist name
   playlist.load()
+
+exports.addFileToPlaylist = (name, file) ->
+  Track.create(file).then (track) ->
+    db.tracks.add(track)
+  .then ->
+    db.playlists.addFile name, file
 
 exports.listNames = ->
   db.playlists.names()

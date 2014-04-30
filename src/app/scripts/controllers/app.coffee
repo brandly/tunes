@@ -33,4 +33,9 @@ angular.module('tunes')
 
   $scope.player =
     pause: $tunes.pause
+
+  $scope.addToPlaylist = (name, file) ->
+    playlist = null
+    $tunes.addFileToPlaylist(name, file)
+
 ]

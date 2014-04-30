@@ -15,4 +15,8 @@
     overflow-x: hidden;
     max-width: 10px; // lets the table collapse?
   }
+
+  .dragging {
+    opacity: .3;
+  }
 }

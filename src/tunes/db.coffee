@@ -94,4 +94,12 @@ exports.playlists =
 
     deferred.promise
 
+  addFile: (name, file) ->
+    deferred = Q.defer()
+    Playlists.update {name}, {
+      '$push':
+        files: file
+    }, deferred.makeNodeResolver()
+    deferred.promise
+
   names: unique(Playlists, 'name')
