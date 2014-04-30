@@ -1,17 +1,2 @@
 <h2 class="content-header">searching for {{searchQuery}}<span ng-if="loading" dot-dot-dot></span></h2>
-<table class="search-results" ng-show="searchResults">
-  <thead>
-    <tr>
-      <th>song</th>
-      <th>artist</th>
-      <th>album</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr ng-repeat="track in searchResults" ng-dblclick="playTrack(track)" drag-track="{{track.file}}">
-      <td>{{track.title}}</td>
-      <td>{{track.artist}}</td>
-      <td>{{track.album}}</td>
-    </tr>
-  </tbody>
-</table>
+<table track-table tracks="searchResults"></table>

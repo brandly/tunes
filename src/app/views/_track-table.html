@@ -1,0 +1,16 @@
+<table class="track-table" ng-show="tracks.length">
+  <thead>
+    <tr>
+      <th>song</th>
+      <th>artist</th>
+      <th>album</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="track in tracks" ng-dblclick="playTrack(track)" drag-track="{{track.file}}">
+      <td>{{track.title}}</td>
+      <td>{{track.artist}}</td>
+      <td>{{track.album}}</td>
+    </tr>
+  </tbody>
+</table>
