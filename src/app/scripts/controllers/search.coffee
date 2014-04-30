@@ -9,7 +9,4 @@ angular.module('tunes')
     $scope.searchResults = tracks
   .finally ->
     $scope.loading = false
-
-  $scope.playTrack = (track) ->
-    $tunes.play track.file
 ]
