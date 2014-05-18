@@ -1,6 +1,6 @@
 angular.module('tunes')
 
-.controller 'AppCtrl', ['$scope', '$tunes', '_', '$state', ($scope, $tunes, _, $state) ->
+.controller 'AppCtrl', ['$scope', '$tunes', '_', '$state', '$player', ($scope, $tunes, _, $state, $player) ->
   $scope.query =
     search: ''
   $scope.playlists = null
@@ -31,8 +31,7 @@ angular.module('tunes')
   $scope.viewPlaylist = (name) ->
     $state.go 'playlist', {name}
 
-  $scope.player =
-    pause: $tunes.pause
+  $scope.player = $player
 
   $scope.addToPlaylist = (name, file) ->
     playlist = null

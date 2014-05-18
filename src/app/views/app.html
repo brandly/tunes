@@ -41,4 +41,10 @@
       <i class="fa fa-step-forward"></i>
     </a>
   </div>
+  <div class="now-playing" ng-show="player.nowPlaying">
+    <div class="np-song">
+      <h2 class="np-title">{{player.nowPlaying.title}}</h2>
+      <h3 class="np-artist">{{player.nowPlaying.artist}}</h3>
+    </div>
+  </div>
 </div>
