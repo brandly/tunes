@@ -10,9 +10,9 @@ exports.track = (file) ->
 
     deferred.resolve {
       file: file
-      title: tags.v2.title
-      artist: tags.v2.artist
-      album: tags.v2.album
+      title: tags.title
+      artist: tags.artist
+      album: tags.album
       stream: -> fs.createReadStream(file)
     }
 
