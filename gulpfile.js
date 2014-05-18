@@ -29,7 +29,7 @@ function createScriptsTask (scripts) {
 
     return es.merge(libs, compiled)
              .pipe(concat(scripts.dest))
-             .pipe(uglify())
+             // .pipe(uglify())
              .pipe(gulp.dest('build/'));
   }
 }

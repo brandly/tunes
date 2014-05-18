@@ -27,11 +27,17 @@
 <div class="content" ui-view></div>
 
 <div class="player">
+  <div class="now-playing" ng-show="player.nowPlaying">
+    <div class="np-song">
+      <h2 class="np-title">{{player.nowPlaying.title}}</h2>
+      <h3 class="np-artist">{{player.nowPlaying.artist}}</h3>
+    </div>
+  </div>
   <div class="player-controls">
     <a class="button prev-button" ng-click="player.prev()">
       <i class="fa fa-step-backward"></i>
     </a>
-    <a class="button play-button" ng-click="player.play()" ng-show="player.paused">
+    <a class="button play-button" ng-click="player.resume()" ng-show="player.paused">
       <i class="fa fa-play"></i>
     </a>
     <a class="button pause-button" ng-click="player.pause()" ng-hide="player.paused">
@@ -40,11 +46,5 @@
     <a class="button skip-button" ng-click="player.next()">
       <i class="fa fa-step-forward"></i>
     </a>
-  </div>
-  <div class="now-playing" ng-show="player.nowPlaying">
-    <div class="np-song">
-      <h2 class="np-title">{{player.nowPlaying.title}}</h2>
-      <h3 class="np-artist">{{player.nowPlaying.artist}}</h3>
-    </div>
   </div>
 </div>

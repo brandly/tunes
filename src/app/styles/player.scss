@@ -27,6 +27,7 @@ $controls-color: #ccc;
   position: absolute;
   top: 0;
   left: 0;
+  z-index: -1;
 
   .np-title {
     font-size: 20px;
