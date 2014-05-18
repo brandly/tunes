@@ -31,10 +31,10 @@
     <a class="button prev-button" ng-click="player.prev()">
       <i class="fa fa-step-backward"></i>
     </a>
-<!--     <a class="button play-button" ng-click="player.play()" ng-show="player.current.sound.paused">
+    <a class="button play-button" ng-click="player.play()" ng-show="player.paused">
       <i class="fa fa-play"></i>
-    </a> -->
-    <a class="button pause-button" ng-click="player.pause()">
+    </a>
+    <a class="button pause-button" ng-click="player.pause()" ng-hide="player.paused">
       <i class="fa fa-pause"></i>
     </a>
     <a class="button skip-button" ng-click="player.next()">
