@@ -1,19 +1,23 @@
-id3 = require 'id3js'
+mm = require 'musicmetadata'
 Q = require 'q'
 fs = require 'fs'
 
 exports.track = (file) ->
   deferred = Q.defer()
 
-  id3 {file: file, type: id3.OPEN_LOCAL}, (err, tags) ->
-    deferred.reject err if err
+  fileStream = fs.createReadStream(file)
+  parser = mm fileStream
 
+  parser.on 'metadata', (tag) ->
     deferred.resolve {
       file: file
-      title: tags.title
-      artist: tags.artist
-      album: tags.album
-      stream: -> fs.createReadStream(file)
+      title: tag.title
+      artist: tag.artist.join ', '
+      album: tag.album
+      stream: -> fileStream
     }
+
+  parser.on 'done', (err) ->
+    deferred.reject err if err
 
   deferred.promise
